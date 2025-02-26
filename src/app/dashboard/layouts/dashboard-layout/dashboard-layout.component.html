@@ -1,0 +1,17 @@
+<nb-layout>
+  <nb-layout-header>
+    <a href="#" (click)="toggle()">
+      <nb-icon icon="menu-outline"></nb-icon>
+    </a>
+    <div class="actions-container">
+      <shared-header></shared-header>
+    </div>
+  </nb-layout-header>
+  <nb-layout-footer></nb-layout-footer>
+  <nb-layout-column>
+    <router-outlet />
+  </nb-layout-column>
+  <nb-sidebar state="expanded" responsive>
+    <nb-menu [items]="sidebarItems" autoCollapse="true"> </nb-menu>
+  </nb-sidebar>
+</nb-layout>
