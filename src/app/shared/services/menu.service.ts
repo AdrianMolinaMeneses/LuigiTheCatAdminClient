@@ -21,7 +21,7 @@ export class MenuService {
         },
         {
           title: 'Lista de productos',
-          link: '/products/products-list',
+          link: '/products/view-products',
         },
       ],
     },

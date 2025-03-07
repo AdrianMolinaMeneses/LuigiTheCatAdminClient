@@ -5,19 +5,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 
-import { NbMenuModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import {
+  NbMenuModule,
+  NbSidebarModule,
+  NbThemeModule,
+  NbToastrModule,
+} from '@nebular/theme';
 import { NebularThemeModule } from './nebular-theme/nebular-theme.module';
-import { SharedModule } from './shared/shared.module';
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import { AgGridModule } from 'ag-grid-angular';
+
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     AppRoutingModule,
+    AgGridModule,
     BrowserModule,
     BrowserAnimationsModule,
     NbMenuModule.forRoot(),
     NbSidebarModule.forRoot(),
     NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbToastrModule.forRoot(),
     NebularThemeModule,
   ],
   providers: [provideHttpClient()],

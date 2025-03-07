@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardLayoutComponent } from '../dashboard/layouts/dashboard-layout/dashboard-layout.component';
 import { ProductEditorPageComponent } from './pages/product-editor-page/product-editor-page.component';
-import { ProductsListPageComponent } from './pages/products-list-page/products-list-page.component';
+import { ViewProductsPageComponent } from './pages/view-products-page/view-products-page.component';
 
 const routes: Routes = [
   {
@@ -18,12 +18,12 @@ const routes: Routes = [
         component: ProductEditorPageComponent,
       },
       {
-        path: 'products-list',
-        component: ProductsListPageComponent,
+        path: 'view-products',
+        component: ViewProductsPageComponent,
       },
       {
         path: '**',
-        redirectTo: 'products-list',
+        redirectTo: 'view-products',
       },
     ],
   },
