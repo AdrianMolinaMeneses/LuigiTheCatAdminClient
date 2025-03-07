@@ -1,1 +1,158 @@
-<p>product-editor-page works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
+      <nb-card-header>{{ textHeader }}</nb-card-header>
+      <nb-card-body>
+        <form
+          [formGroup]="productEditorForm"
+          autocomplete="off"
+          (ngSubmit)="sendData()"
+        >
+          <div class="mb-3">
+            <label class="form-label">Producto</label>
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              [status]="
+                formValidationService.isValidField(productEditorForm, 'name')
+                  ? 'danger'
+                  : 'primary'
+              "
+              formControlName="name"
+              placeholder="Nombre del producto"
+            />
+
+            <span
+              *ngIf="
+                formValidationService.isValidField(productEditorForm, 'name')
+              "
+              class="form-text text-danger"
+            >
+              {{
+                formValidationService.getFieldError(productEditorForm, "name")
+              }}
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Precio</label>
+            <input
+              type="number"
+              nbInput
+              fullWidth
+              [status]="
+                formValidationService.isValidField(productEditorForm, 'price')
+                  ? 'danger'
+                  : 'primary'
+              "
+              formControlName="price"
+              placeholder="Precio del producto"
+            />
+
+            <span
+              *ngIf="
+                formValidationService.isValidField(productEditorForm, 'price')
+              "
+              class="form-text text-danger"
+            >
+              {{
+                formValidationService.getFieldError(productEditorForm, "price")
+              }}
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Talla</label>
+            <nb-select fullWidth formControlName="size">
+              <nb-option *ngFor="let size of sizes" [value]="size">
+                {{ size }}
+              </nb-option>
+            </nb-select>
+          </div>
+
+          <!-- <div class="mb-3">
+            <label class="form-label">Tallaaaa</label>
+            <select formControlName="size" (change)="onSelectChange($event)">
+              <option *ngFor="let size of sizes" [value]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div> -->
+
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea
+              nbInput
+              fullWidth
+              [status]="
+                formValidationService.isValidField(
+                  productEditorForm,
+                  'description'
+                )
+                  ? 'danger'
+                  : 'primary'
+              "
+              formControlName="description"
+              placeholder="Descripción del producto"
+            ></textarea>
+
+            <span
+              *ngIf="
+                formValidationService.isValidField(
+                  productEditorForm,
+                  'description'
+                )
+              "
+              class="form-text text-danger"
+            >
+              {{
+                formValidationService.getFieldError(
+                  productEditorForm,
+                  "description"
+                )
+              }}
+            </span>
+          </div>
+          <button
+            nbButton
+            status="primary"
+            type="submit"
+            class="float-end"
+            [disabled]="!productEditorForm.valid"
+          >
+            {{ textButtom }}
+          </button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ productEditorForm.valid | json }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ productEditorForm.pristine | json }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ productEditorForm.touched | json }}</pre>
+
+    <span>Value</span>
+    <pre>{{ productEditorForm.value | json }}</pre>
+
+    <span>Precio</span>
+    <pre>{{ productEditorForm.controls["price"].value | json }}</pre>
+
+    <span>Precio - Errors</span>
+    <pre>{{ productEditorForm.controls["price"].errors | json }}</pre>
+
+    <span>Producto</span>
+    <pre>{{ productEditorForm.controls["name"].value | json }}</pre>
+
+    <span>Producto - Errors</span>
+    <pre>{{ productEditorForm.controls["name"].errors | json }}</pre>
+  </div>
+</div> -->

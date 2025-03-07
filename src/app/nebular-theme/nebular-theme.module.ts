@@ -7,9 +7,13 @@ import {
   NbCardModule,
   NbContextMenuModule,
   NbIconModule,
+  NbInputModule,
   NbLayoutModule,
   NbMenuModule,
+  NbSelectModule,
   NbSidebarModule,
+  NbSpinnerModule,
+  NbTooltipModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -23,8 +27,12 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbEvaIconsModule,
     NbIconModule,
     NbLayoutModule,
-    NbSidebarModule,
     NbMenuModule,
+    NbSidebarModule,
+    NbSpinnerModule,
+    NbSelectModule,
+    NbInputModule,
+    NbTooltipModule,
   ],
 })
 export class NebularThemeModule {}
