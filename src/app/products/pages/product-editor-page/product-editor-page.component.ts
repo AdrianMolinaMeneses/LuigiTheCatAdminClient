@@ -5,6 +5,8 @@ import { ProductService } from '../../services/product.service';
 import { ToastNotificationService } from '../../../shared/services/toast-notification.service';
 import { RegisterProduct } from '../../interfaces/register-product.interface';
 import { SizeEnum } from '../../interfaces/size-enum.interface';
+import { ActivatedRoute } from '@angular/router';
+import { UpdateProduct } from '../../interfaces/update-product.interface';
 
 @Component({
   selector: 'app-product-editor-page',
@@ -13,7 +15,7 @@ import { SizeEnum } from '../../interfaces/size-enum.interface';
 })
 export class ProductEditorPageComponent implements OnInit {
   public productEditorForm!: FormGroup;
-  //public productToEdit: Product;
+  public productId: string = '';
   public textButtom!: string;
   public textHeader!: string;
 
@@ -24,14 +26,13 @@ export class ProductEditorPageComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductService,
     private toastNotificationService: ToastNotificationService,
+    private route: ActivatedRoute,
     public formValidationService: FormValidationService
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
-
-    this.textHeader = 'Registrar Producto';
-    this.textButtom = 'Guardar';
+    this.registerOrUpdate();
   }
 
   buildForm() {
@@ -54,6 +55,34 @@ export class ProductEditorPageComponent implements OnInit {
     });
   }
 
+  registerOrUpdate() {
+    this.route.paramMap.subscribe((params) => {
+      if (params.get('id')) {
+        this.loading = true;
+        this.productId = params.get('id')!;
+        this.productService.getProductById(this.productId).subscribe({
+          next: (product) => {
+            this.productEditorForm.reset(product);
+            this.textHeader = 'Editar Producto';
+            this.textButtom = 'Actualizar';
+            this.loading = false;
+          },
+          error: (err) => {
+            this.toastNotificationService.showToast(
+              'Error',
+              err.error.message,
+              'danger'
+            );
+            this.loading = false;
+          },
+        });
+      } else {
+        this.textHeader = 'Registrar Producto';
+        this.textButtom = 'Guardar';
+      }
+    });
+  }
+
   sendData() {
     if (this.productEditorForm.invalid) {
       this.productEditorForm.markAllAsTouched();
@@ -62,9 +91,12 @@ export class ProductEditorPageComponent implements OnInit {
 
     this.loading = true;
 
-    let { isActive, ...registerProduct } = this.productEditorForm.value;
-    console.log(registerProduct);
-    this.registerProduct(registerProduct);
+    if (this.productId) {
+      this.updateProduct(this.productEditorForm.value);
+    } else {
+      let { isActive, ...registerProduct } = this.productEditorForm.value;
+      this.registerProduct(registerProduct);
+    }
   }
 
   registerProduct(registerProduct: RegisterProduct) {
@@ -82,6 +114,28 @@ export class ProductEditorPageComponent implements OnInit {
           size: SizeEnum.SMALL,
           isActive: true,
         });
+        this.loading = false;
+      },
+      error: (err) => {
+        this.toastNotificationService.showToast(
+          'Error',
+          err.error.message,
+          'danger'
+        );
+        this.loading = false;
+      },
+    });
+  }
+
+  updateProduct(updateProduct: UpdateProduct) {
+    this.productService.updateProduct(this.productId, updateProduct).subscribe({
+      next: (product) => {
+        this.toastNotificationService.showToast(
+          'Éxito',
+          `Se actualizo el producto ${product.name}`,
+          'success'
+        );
+        this.productEditorForm.reset(product);
         this.loading = false;
       },
       error: (err) => {

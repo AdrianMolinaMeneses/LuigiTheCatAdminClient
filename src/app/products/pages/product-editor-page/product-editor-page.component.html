@@ -71,14 +71,12 @@
             </nb-select>
           </div>
 
-          <!-- <div class="mb-3">
-            <label class="form-label">Tallaaaa</label>
-            <select formControlName="size" (change)="onSelectChange($event)">
-              <option *ngFor="let size of sizes" [value]="size">
-                {{ size }}
-              </option>
-            </select>
-          </div> -->
+          <div *ngIf="productId" class="toggle-container mb-3">
+            <span>{{
+              productEditorForm.value.isActive ? "Activo" : "No Activo"
+            }}</span>
+            <nb-toggle formControlName="isActive"></nb-toggle>
+          </div>
 
           <div class="mb-3">
             <label class="form-label">Descripción</label>

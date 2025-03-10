@@ -7,6 +7,7 @@ import { Error404PageComponent } from './pages/error404-page/error404-page.compo
 import { IconRendererComponent } from './components/icon-renderer/icon-renderer.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     Error404PageComponent,
     IconRendererComponent,
     SearchBoxComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [CommonModule, NebularThemeModule, ReactiveFormsModule],
   exports: [HeaderComponent, FooterComponent, SearchBoxComponent],

@@ -1,0 +1,9 @@
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-container span {
+  font-weight: bold;
+}
