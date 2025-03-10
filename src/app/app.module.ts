@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 
 import {
+  NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
   NbThemeModule,
@@ -28,6 +29,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     NbSidebarModule.forRoot(),
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbToastrModule.forRoot(),
+    NbDialogModule.forRoot(),
     NebularThemeModule,
   ],
   providers: [provideHttpClient()],

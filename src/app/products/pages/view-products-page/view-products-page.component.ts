@@ -7,6 +7,9 @@ import { IconRendererComponent } from '../../../shared/components/icon-renderer/
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { SizeEnum } from '../../interfaces/size-enum.interface';
+import { NbDialogService } from '@nebular/theme';
+import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ToastNotificationService } from '../../../shared/services/toast-notification.service';
 
 @Component({
   selector: 'app-view-products-page',
@@ -25,7 +28,12 @@ export class ViewProductsPageComponent implements OnInit {
 
   public loading: boolean = false;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private toastNotificationService: ToastNotificationService,
+    private router: Router,
+    private dialogService: NbDialogService
+  ) {}
 
   ngOnInit(): void {
     this.getProducts('', '');
@@ -106,6 +114,43 @@ export class ViewProductsPageComponent implements OnInit {
   }
 
   deleteProduct(productId: string) {
-    console.log(productId);
+    let product = this.products.find((p) => p._id === productId);
+
+    const data = {
+      textHeader: 'Eliminar Producto',
+      message: `¿Esta seguro de eliminar el producto ${product?.name}?`,
+    };
+
+    this.dialogService
+      .open(ConfirmationDialogComponent, {
+        context: { data },
+        closeOnBackdropClick: false,
+      })
+      .onClose.subscribe((resultado) => {
+        if (resultado) {
+          this.loading = true;
+          this.productService.deleteProduct(productId).subscribe({
+            next: () => {
+              this.toastNotificationService.showToast(
+                'Éxito',
+                `Se elimino el producto`,
+                'success'
+              );
+              this.products = this.products.filter(
+                (product) => product._id !== productId
+              );
+              this.loading = false;
+            },
+            error: (err) => {
+              this.toastNotificationService.showToast(
+                'Error',
+                err.error.message,
+                'danger'
+              );
+              this.loading = false;
+            },
+          });
+        }
+      });
   }
 }
