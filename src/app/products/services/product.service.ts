@@ -9,8 +9,8 @@ import { UpdateProduct } from '../interfaces/update-product.interface';
 export class ProductService {
   constructor(private productDataStoreService: ProductDatastoreService) {}
 
-  public listProducts(query: string, size: string) {
-    return this.productDataStoreService.findAll(query, size);
+  public listProducts(query: string, size: string, color: string) {
+    return this.productDataStoreService.findAll(query, size, color);
   }
 
   public getProductById(id: string) {

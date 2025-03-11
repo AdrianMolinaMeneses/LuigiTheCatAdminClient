@@ -10,6 +10,7 @@ import { SizeEnum } from '../../interfaces/size-enum.interface';
 import { NbDialogService } from '@nebular/theme';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ToastNotificationService } from '../../../shared/services/toast-notification.service';
+import { ColorEnum } from '../../interfaces/color-enum.interface';
 
 @Component({
   selector: 'app-view-products-page',
@@ -18,7 +19,9 @@ import { ToastNotificationService } from '../../../shared/services/toast-notific
 })
 export class ViewProductsPageComponent implements OnInit {
   public products: Product[] = [];
+  public colorControl = new FormControl('');
   public sizeControl = new FormControl('');
+  public colors = Object.values(ColorEnum);
   public sizes = Object.values(SizeEnum);
   private query: string = '';
 
@@ -36,19 +39,23 @@ export class ViewProductsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getProducts('', '');
+    this.getProducts('', '', '');
     this.loadTable();
 
+    this.colorControl.valueChanges.subscribe((value) => {
+      this.getProducts(this.query, this.sizeControl.value!, value!);
+    });
+
     this.sizeControl.valueChanges.subscribe((value) => {
-      this.getProducts(this.query, value!);
+      this.getProducts(this.query, value!, this.colorControl.value!);
     });
   }
 
-  getProducts(query: string, size: string) {
+  getProducts(query: string, size: string, color: string) {
     this.loading = true;
     this.query = query;
 
-    this.productService.listProducts(query, size).subscribe({
+    this.productService.listProducts(query, size, color).subscribe({
       next: (products) => {
         this.products = products;
         this.loading = false;
@@ -64,6 +71,11 @@ export class ViewProductsPageComponent implements OnInit {
     this.columnDefs = [
       { headerName: 'Nombre', field: 'name', sortable: true },
       {
+        headerName: 'Color',
+        field: 'color',
+        sortable: true,
+      },
+      {
         headerName: 'Talla',
         field: 'size',
         sortable: true,
@@ -71,16 +83,11 @@ export class ViewProductsPageComponent implements OnInit {
         maxWidth: 80,
       },
       {
-        headerName: 'Precio',
+        headerName: 'Precio (Bs.)',
         field: 'price',
         sortable: true,
-        minWidth: 80,
-        maxWidth: 80,
-      },
-      {
-        headerName: 'Descripción',
-        field: 'description',
-        sortable: true,
+        minWidth: 120,
+        maxWidth: 120,
       },
       {
         cellRenderer: IconRendererComponent,
@@ -118,13 +125,14 @@ export class ViewProductsPageComponent implements OnInit {
 
     const data = {
       textHeader: 'Eliminar Producto',
-      message: `¿Esta seguro de eliminar el producto ${product?.name}?`,
+      message: `¿Esta seguro de eliminar el producto ${product?.name} color ${product?.color} talla ${product?.size}?<br><br>Se borrara tanto el producto como el stock asociado.`,
     };
 
     this.dialogService
       .open(ConfirmationDialogComponent, {
         context: { data },
         closeOnBackdropClick: false,
+        dialogClass: 'custom-confirmation-dialog',
       })
       .onClose.subscribe((resultado) => {
         if (resultado) {

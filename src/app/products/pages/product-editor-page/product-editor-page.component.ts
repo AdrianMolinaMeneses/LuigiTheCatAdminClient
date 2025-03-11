@@ -7,6 +7,7 @@ import { RegisterProduct } from '../../interfaces/register-product.interface';
 import { SizeEnum } from '../../interfaces/size-enum.interface';
 import { ActivatedRoute } from '@angular/router';
 import { UpdateProduct } from '../../interfaces/update-product.interface';
+import { ColorEnum } from '../../interfaces/color-enum.interface';
 
 @Component({
   selector: 'app-product-editor-page',
@@ -19,6 +20,7 @@ export class ProductEditorPageComponent implements OnInit {
   public textButtom!: string;
   public textHeader!: string;
 
+  public colors = Object.values(ColorEnum);
   public sizes = Object.values(SizeEnum);
   public loading: boolean = false;
 
@@ -50,6 +52,7 @@ export class ProductEditorPageComponent implements OnInit {
         0,
         [Validators.required, Validators.min(0), Validators.max(100000)],
       ],
+      color: [ColorEnum.AZUL_MARINO, Validators.required],
       size: [SizeEnum.SMALL, Validators.required],
       isActive: [true, Validators.required],
     });
@@ -111,6 +114,7 @@ export class ProductEditorPageComponent implements OnInit {
           name: '',
           price: 0,
           description: '',
+          color: ColorEnum.AZUL_MARINO,
           size: SizeEnum.SMALL,
           isActive: true,
         });

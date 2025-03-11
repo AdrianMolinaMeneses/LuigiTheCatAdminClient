@@ -14,11 +14,12 @@ export class ProductDatastoreService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(query: string, size: string): Observable<Product[]> {
+  findAll(query: string, size: string, color: string): Observable<Product[]> {
     //let params = new HttpParams().set('searchParam', searchParam);
     let params = new HttpParams();
     params = params.append('query', query);
     params = params.append('size', size);
+    params = params.append('color', color);
 
     return this.http.get<Product[]>(this.baseUrl, { params: params });
   }
