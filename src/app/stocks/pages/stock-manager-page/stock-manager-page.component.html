@@ -3,7 +3,7 @@
     <shared-search-box
       [placeholder]="'Buscar producto ...'"
       (sendQueryData)="
-        getProducts($event, sizeControl.value!, colorControl.value!)
+        getStocks($event, sizeControl.value!, colorControl.value!)
       "
     ></shared-search-box>
   </div>
@@ -25,12 +25,12 @@
   </div>
 </div>
 <nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
-  <nb-card-header>Productos</nb-card-header>
+  <nb-card-header>Stocks</nb-card-header>
   <nb-card-body>
     <ag-grid-angular
       style="width: 100%; height: 400px"
       class="ag-theme-alpine"
-      [rowData]="products"
+      [rowData]="stocks"
       [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef"
       [pagination]="true"

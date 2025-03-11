@@ -25,6 +25,16 @@ export class MenuService {
         },
       ],
     },
+    {
+      title: 'Stocks',
+      icon: 'keypad-outline',
+      children: [
+        {
+          title: 'Administracion de stocks',
+          link: '/stocks/stock-manager',
+        },
+      ],
+    },
   ];
 
   getMenuItems(): NbMenuItem[] {

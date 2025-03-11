@@ -1,0 +1,5 @@
+.custom-confirmation-dialog nb-dialog-container {
+  width: 500px; /* Cambia el ancho */
+  max-width: 80vw; /* Para que no se haga demasiado grande */
+  height: 400px; /* Cambia la altura */
+}
