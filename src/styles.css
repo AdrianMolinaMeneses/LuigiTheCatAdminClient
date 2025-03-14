@@ -3,3 +3,17 @@
   max-width: 80vw; /* Para que no se haga demasiado grande */
   height: 400px; /* Cambia la altura */
 }
+
+.custom-form-dialog nb-dialog-container {
+  width: 700px; /* Cambia el ancho */
+  max-width: 80vw; /* Para que no se haga demasiado grande */
+  height: 400px; /* Cambia la altura */
+}
+
+.custom-date-picker {
+  cursor: pointer !important;
+}
+
+input[readonly] {
+  cursor: not-allowed;
+}

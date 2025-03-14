@@ -33,6 +33,10 @@ export class MenuService {
           title: 'Administracion de stocks',
           link: '/stocks/stock-manager',
         },
+        {
+          title: 'Movimientos de stock',
+          link: '/stocks/view-stock-movements',
+        },
       ],
     },
   ];

@@ -1,0 +1,100 @@
+<nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
+  <nb-card-header>
+    Agregar mercaderia para {{ stock.product.name }} ({{
+      stock.product.color
+    }}
+    - {{ stock.product.size }})
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="sendData()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Fecha</label>
+          <input
+            nbInput
+            [nbDatepicker]="dateTimePicker"
+            formControlName="registerDate"
+            class="custom-date-picker"
+            fullWidth
+            [status]="'primary'"
+            readonly
+          />
+          <nb-datepicker #dateTimePicker></nb-datepicker>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Precio Unitario (Bs.)</label>
+          <input
+            type="number"
+            nbInput
+            fullWidth
+            [status]="
+              formValidationService.isValidField(myForm, 'unitPrice')
+                ? 'danger'
+                : 'primary'
+            "
+            formControlName="unitPrice"
+            placeholder="Precio de compra"
+          />
+
+          <span
+            *ngIf="formValidationService.isValidField(myForm, 'unitPrice')"
+            class="form-text text-danger"
+          >
+            {{ formValidationService.getFieldError(myForm, "unitPrice") }}
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Cantidad</label>
+          <input
+            type="number"
+            nbInput
+            fullWidth
+            [status]="
+              formValidationService.isValidField(myForm, 'quantity')
+                ? 'danger'
+                : 'primary'
+            "
+            formControlName="quantity"
+            placeholder="Cantidad.."
+          />
+
+          <span
+            *ngIf="formValidationService.isValidField(myForm, 'quantity')"
+            class="form-text text-danger"
+          >
+            {{ formValidationService.getFieldError(myForm, "quantity") }}
+          </span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Monto Total (Bs.)</label>
+          <input
+            type="number"
+            nbInput
+            fullWidth
+            [status]="'primary'"
+            formControlName="totalAmount"
+            placeholder="Precio del producto"
+            readonly
+          />
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="danger" (click)="close()">Cancelar</button>
+    <button
+      nbButton
+      status="primary"
+      type="submit"
+      class="float-end"
+      [disabled]="!myForm.valid"
+      (click)="sendData()"
+    >
+      Guardar
+    </button>
+  </nb-card-footer>
+</nb-card>
