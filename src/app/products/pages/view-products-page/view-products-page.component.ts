@@ -134,8 +134,8 @@ export class ViewProductsPageComponent implements OnInit {
         closeOnBackdropClick: false,
         dialogClass: 'custom-confirmation-dialog',
       })
-      .onClose.subscribe((resultado) => {
-        if (resultado) {
+      .onClose.subscribe((res) => {
+        if (res) {
           this.loading = true;
           this.productService.deleteProduct(productId).subscribe({
             next: () => {

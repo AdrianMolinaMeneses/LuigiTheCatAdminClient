@@ -6,6 +6,7 @@ import {
   NbButtonModule,
   NbCardModule,
   NbContextMenuModule,
+  NbDatepickerModule,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
@@ -35,6 +36,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbInputModule,
     NbTooltipModule,
     NbToggleModule,
+    NbDatepickerModule,
   ],
 })
 export class NebularThemeModule {}

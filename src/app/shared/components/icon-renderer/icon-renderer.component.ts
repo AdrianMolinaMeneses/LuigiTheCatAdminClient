@@ -15,10 +15,10 @@ export class IconRendererComponent implements ICellRendererAngularComp {
   }
 
   onClick() {
-    const productId = this.params.data._id;
+    const id = this.params.data._id;
 
     if (this.params.onAction) {
-      this.params.onAction(productId);
+      this.params.onAction(id);
     }
   }
 

@@ -1,0 +1,8 @@
+<shared-date-range-picker
+  [inputStartDate]="startDate"
+  [inputEndDate]="endDate"
+  (sendDateRange)="getStockMovements($event.startDate, $event.endDate)"
+></shared-date-range-picker>
+
+<pre>{{ stockMovements.length }}</pre>
+<pre>{{ stockMovements | json }}</pre>

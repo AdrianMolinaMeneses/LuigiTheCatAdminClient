@@ -6,9 +6,11 @@ import { SharedModule } from '../shared/shared.module';
 import { StocksRoutingModule } from './stocks-routing.module';
 import { StockManagerPageComponent } from './pages/stock-manager-page/stock-manager-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StockManagerDialogComponent } from './components/stock-manager-dialog/stock-manager-dialog.component';
+import { ViewStockMovementsPageComponent } from './pages/view-stock-movements-page/view-stock-movements-page.component';
 
 @NgModule({
-  declarations: [StockManagerPageComponent],
+  declarations: [StockManagerPageComponent, StockManagerDialogComponent, ViewStockMovementsPageComponent],
   imports: [
     AgGridModule,
     CommonModule,

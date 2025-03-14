@@ -6,6 +6,9 @@ import { ColorEnum } from '../../../products/interfaces/color-enum.interface';
 import { SizeEnum } from '../../../products/interfaces/size-enum.interface';
 import { ColDef } from 'ag-grid-community';
 import { localeEs } from '../../../../locale-es';
+import { IconRendererComponent } from '../../../shared/components/icon-renderer/icon-renderer.component';
+import { NbDialogService } from '@nebular/theme';
+import { StockManagerDialogComponent } from '../../components/stock-manager-dialog/stock-manager-dialog.component';
 
 @Component({
   selector: 'app-stock-manager-page',
@@ -26,7 +29,10 @@ export class StockManagerPageComponent implements OnInit {
 
   public loading: boolean = false;
 
-  constructor(private stockService: StockService) {}
+  constructor(
+    private stockService: StockService,
+    private dialogService: NbDialogService
+  ) {}
 
   ngOnInit(): void {
     this.getStocks('', '', '');
@@ -86,8 +92,45 @@ export class StockManagerPageComponent implements OnInit {
         minWidth: 100,
         maxWidth: 100,
       },
+      {
+        cellRenderer: IconRendererComponent,
+        cellRendererParams: {
+          icon: 'plus-square-outline',
+          tooltip: 'Agregar Mercaderia',
+          color: 'success',
+          onAction: this.addMerchandise.bind(this),
+        },
+        minWidth: 60,
+        maxWidth: 60,
+      },
     ];
 
     this.defaultColDef = { resizable: true, flex: 1 };
+  }
+
+  addMerchandise(stockId: string) {
+    const stock = this.stocks.find((s) => s._id === stockId);
+    console.log({ ID: stockId, STOCK: stock });
+
+    const data = {
+      stock: stock,
+    };
+
+    this.dialogService
+      .open(StockManagerDialogComponent, {
+        context: { data },
+        closeOnBackdropClick: false,
+        dialogClass: 'custom-form-dialog',
+      })
+      .onClose.subscribe((res) => {
+        if (res) {
+          console.log(res);
+          this.getStocks(
+            this.query,
+            this.sizeControl.value!,
+            this.colorControl.value!
+          );
+        }
+      });
   }
 }
