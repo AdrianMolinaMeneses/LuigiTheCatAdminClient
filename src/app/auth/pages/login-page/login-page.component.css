@@ -1,0 +1,21 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+nb-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+nb-card-header {
+  text-align: center;
+  font-size: 30px;
+}

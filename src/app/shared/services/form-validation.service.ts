@@ -36,6 +36,9 @@ export class FormValidationService {
         case 'max':
           return `El valor deber ser ${errors['max'].max} o menor`;
 
+        case 'email':
+          return `El email no es valido.`;
+
         case 'stockExceeded':
           return `Excede la cantidad disponible`;
       }
