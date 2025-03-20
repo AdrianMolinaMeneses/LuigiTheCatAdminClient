@@ -3,7 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import {
   NbDatepickerModule,
@@ -21,6 +21,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 registerLocaleData(localeEs);
@@ -43,9 +44,12 @@ registerLocaleData(localeEs);
       parseOptions: { locale: es },
       formatOptions: { locale: es },
     }),
-    NebularThemeModule,
+    //NebularThemeModule,
   ],
-  providers: [provideHttpClient(), { provide: LOCALE_ID, useValue: 'es' }],
+  providers: [
+    provideHttpClient(withInterceptors([AuthInterceptor])),
+    { provide: LOCALE_ID, useValue: 'es' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

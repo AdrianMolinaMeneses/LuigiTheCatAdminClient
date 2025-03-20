@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMenuItem, NbMenuService } from '@nebular/theme';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'shared-header',
@@ -8,12 +9,15 @@ import { NbMenuItem, NbMenuService } from '@nebular/theme';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public userMenuItems: NbMenuItem[] = [
-    { title: 'Cambiar contraseña', data: { id: 'change-password' } },
+    //{ title: 'Cambiar contraseña', data: { id: 'change-password' } },
     { title: 'Cerrar sesión', data: { id: 'logout' } },
   ];
   public menuSubscription: any;
 
-  constructor(private nbMenuService: NbMenuService) {}
+  constructor(
+    private nbMenuService: NbMenuService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.menuSubscription = this.nbMenuService
@@ -25,11 +29,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
+  get user() {
+    return this.authService.getStorageUser();
+  }
+
   ngOnDestroy(): void {
     this.menuSubscription.unsubscribe();
   }
 
   onLogout() {
-    console.log('Logout');
+    this.authService.logout();
   }
 }
