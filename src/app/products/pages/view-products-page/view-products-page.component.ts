@@ -69,25 +69,31 @@ export class ViewProductsPageComponent implements OnInit {
 
   loadTable() {
     this.columnDefs = [
-      { headerName: 'Nombre', field: 'name', sortable: true },
+      { headerName: 'Nombre', field: 'name' },
       {
         headerName: 'Color',
         field: 'color',
-        sortable: true,
       },
       {
         headerName: 'Talla',
         field: 'size',
-        sortable: true,
+        cellStyle: { 'text-align': 'center' },
         minWidth: 80,
         maxWidth: 80,
       },
       {
-        headerName: 'Precio (Bs.)',
-        field: 'price',
-        sortable: true,
-        minWidth: 120,
-        maxWidth: 120,
+        headerName: 'Precio de compra (Bs.)',
+        field: 'purchasePrice',
+        cellStyle: { 'text-align': 'center' },
+        minWidth: 175,
+        maxWidth: 175,
+      },
+      {
+        headerName: 'Precio de venta (Bs.)',
+        field: 'salePrice',
+        cellStyle: { 'text-align': 'center' },
+        minWidth: 165,
+        maxWidth: 165,
       },
       {
         cellRenderer: IconRendererComponent,
@@ -97,6 +103,7 @@ export class ViewProductsPageComponent implements OnInit {
           color: 'info',
           onAction: this.editProduct.bind(this),
         },
+        cellStyle: { 'text-align': 'center' },
         minWidth: 60,
         maxWidth: 60,
       },
@@ -108,6 +115,7 @@ export class ViewProductsPageComponent implements OnInit {
           color: 'danger',
           onAction: this.deleteProduct.bind(this),
         },
+        cellStyle: { 'text-align': 'center' },
         minWidth: 60,
         maxWidth: 60,
       },

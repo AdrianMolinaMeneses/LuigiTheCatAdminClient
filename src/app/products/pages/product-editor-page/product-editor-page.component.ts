@@ -48,7 +48,11 @@ export class ProductEditorPageComponent implements OnInit {
         ],
       ],
       description: ['', Validators.maxLength(500)],
-      price: [
+      purchasePrice: [
+        0,
+        [Validators.required, Validators.min(0), Validators.max(100000)],
+      ],
+      salePrice: [
         0,
         [Validators.required, Validators.min(0), Validators.max(100000)],
       ],
@@ -112,7 +116,8 @@ export class ProductEditorPageComponent implements OnInit {
         );
         this.productEditorForm.reset({
           name: '',
-          price: 0,
+          purchasePrice: 0,
+          salePrice: 0,
           description: '',
           color: ColorEnum.AZUL_MARINO,
           size: SizeEnum.SMALL,

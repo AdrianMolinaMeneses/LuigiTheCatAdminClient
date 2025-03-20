@@ -2,7 +2,8 @@ export interface Product {
   _id?: string;
   name: string;
   description: string;
-  price: number;
+  purchasePrice: number;
+  salePrice: number;
   color: string;
   size: string;
   isActive: boolean;

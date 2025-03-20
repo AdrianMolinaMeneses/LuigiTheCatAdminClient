@@ -8,7 +8,7 @@
           autocomplete="off"
           (ngSubmit)="sendData()"
         >
-          <div class="mb-3">
+          <div class="mb-2">
             <label class="form-label">Producto</label>
             <input
               type="text"
@@ -35,49 +35,96 @@
             </span>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Precio</label>
-            <input
-              type="number"
-              nbInput
-              fullWidth
-              [status]="
-                formValidationService.isValidField(productEditorForm, 'price')
-                  ? 'danger'
-                  : 'primary'
-              "
-              formControlName="price"
-              placeholder="Precio del producto"
-            />
+          <div class="row">
+            <div class="col-md-6 mb-2">
+              <label class="form-label">Precio de compra</label>
+              <input
+                type="number"
+                nbInput
+                fullWidth
+                [status]="
+                  formValidationService.isValidField(
+                    productEditorForm,
+                    'purchasePrice'
+                  )
+                    ? 'danger'
+                    : 'primary'
+                "
+                formControlName="purchasePrice"
+                placeholder="Precio del compra"
+              />
 
-            <span
-              *ngIf="
-                formValidationService.isValidField(productEditorForm, 'price')
-              "
-              class="form-text text-danger"
-            >
-              {{
-                formValidationService.getFieldError(productEditorForm, "price")
-              }}
-            </span>
+              <span
+                *ngIf="
+                  formValidationService.isValidField(
+                    productEditorForm,
+                    'purchasePrice'
+                  )
+                "
+                class="form-text text-danger"
+              >
+                {{
+                  formValidationService.getFieldError(
+                    productEditorForm,
+                    "purchasePrice"
+                  )
+                }}
+              </span>
+            </div>
+            <div class="col-md-6 mb-2">
+              <label class="form-label">Precio de venta</label>
+              <input
+                type="number"
+                nbInput
+                fullWidth
+                [status]="
+                  formValidationService.isValidField(
+                    productEditorForm,
+                    'salePrice'
+                  )
+                    ? 'danger'
+                    : 'primary'
+                "
+                formControlName="salePrice"
+                placeholder="Precio de venta"
+              />
+
+              <span
+                *ngIf="
+                  formValidationService.isValidField(
+                    productEditorForm,
+                    'salePrice'
+                  )
+                "
+                class="form-text text-danger"
+              >
+                {{
+                  formValidationService.getFieldError(
+                    productEditorForm,
+                    "salePrice"
+                  )
+                }}
+              </span>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Color</label>
-            <nb-select fullWidth formControlName="color">
-              <nb-option *ngFor="let color of colors" [value]="color">
-                {{ color }}
-              </nb-option>
-            </nb-select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Talla</label>
-            <nb-select fullWidth formControlName="size">
-              <nb-option *ngFor="let size of sizes" [value]="size">
-                {{ size }}
-              </nb-option>
-            </nb-select>
+          <div class="row">
+            <div class="col-md-6 mb-2">
+              <label class="form-label">Color</label>
+              <nb-select fullWidth formControlName="color">
+                <nb-option *ngFor="let color of colors" [value]="color">
+                  {{ color }}
+                </nb-option>
+              </nb-select>
+            </div>
+            <div class="col-md-6 mb-2">
+              <label class="form-label">Talla</label>
+              <nb-select fullWidth formControlName="size">
+                <nb-option *ngFor="let size of sizes" [value]="size">
+                  {{ size }}
+                </nb-option>
+              </nb-select>
+            </div>
           </div>
 
           <div *ngIf="productId" class="toggle-container mb-3">
@@ -87,7 +134,7 @@
             <nb-toggle formControlName="isActive"></nb-toggle>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-2">
             <label class="form-label">Descripción</label>
             <textarea
               nbInput
