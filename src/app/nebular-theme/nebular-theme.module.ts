@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {
   NbActionsModule,
+  NbAlertModule,
   NbButtonModule,
   NbCardModule,
   NbContextMenuModule,
@@ -37,6 +38,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbTooltipModule,
     NbToggleModule,
     NbDatepickerModule,
+    NbAlertModule,
   ],
 })
 export class NebularThemeModule {}

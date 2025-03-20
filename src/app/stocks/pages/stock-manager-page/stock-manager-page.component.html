@@ -1,35 +1,40 @@
-<div class="row mb-3">
-  <div class="col-md-4">
-    <shared-search-box
-      [placeholder]="'Buscar producto ...'"
-      (sendQueryData)="
-        getStocks($event, sizeControl.value!, colorControl.value!)
-      "
-    ></shared-search-box>
-  </div>
-  <div class="col-md-4">
-    <nb-select fullWidth [formControl]="colorControl" status="primary">
-      <nb-option [value]="''">Todos los colores</nb-option>
-      <nb-option *ngFor="let color of colors" [value]="color">
-        {{ color }}
-      </nb-option>
-    </nb-select>
-  </div>
-  <div class="col-md-4">
-    <nb-select fullWidth [formControl]="sizeControl" status="primary">
-      <nb-option [value]="''">Todas las tallas</nb-option>
-      <nb-option *ngFor="let size of sizes" [value]="size">
-        {{ size }}
-      </nb-option>
-    </nb-select>
-  </div>
-</div>
+<nb-card accent="primary">
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <shared-search-box
+          [placeholder]="'Buscar producto ...'"
+          (sendQueryData)="
+            getStocks($event, sizeControl.value!, colorControl.value!)
+          "
+        ></shared-search-box>
+      </div>
+      <div class="col-md-4 mb-2">
+        <nb-select fullWidth [formControl]="colorControl" status="primary">
+          <nb-option [value]="''">Todos los colores</nb-option>
+          <nb-option *ngFor="let color of colors" [value]="color">
+            {{ color }}
+          </nb-option>
+        </nb-select>
+      </div>
+      <div class="col-md-4">
+        <nb-select fullWidth [formControl]="sizeControl" status="primary">
+          <nb-option [value]="''">Todas las tallas</nb-option>
+          <nb-option *ngFor="let size of sizes" [value]="size">
+            {{ size }}
+          </nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
 <nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
   <nb-card-header>Stocks</nb-card-header>
   <nb-card-body>
     <ag-grid-angular
-      style="width: 100%; height: 400px"
+      style="width: 100%"
       class="ag-theme-alpine"
+      domLayout="autoHeight"
       [rowData]="stocks"
       [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef"

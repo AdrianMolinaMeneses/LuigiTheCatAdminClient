@@ -1,14 +1,18 @@
 <nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
   <nb-card-header>
-    Agregar mercaderia para {{ stock.product.name }} ({{
-      stock.product.color
-    }}
-    - {{ stock.product.size }})
+    {{ TypeStockMovement }}
   </nb-card-header>
   <nb-card-body>
+    <nb-alert outline="primary">
+      {{ stock.product.name }} color {{ stock.product.color }} talla
+      {{ stock.product.size }}
+    </nb-alert>
+    <nb-alert *ngIf="TypeStockMovement === 'Venta'" outline="warning">
+      Cantidad disponible: {{ stock.quantity }}
+    </nb-alert>
     <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="sendData()">
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-2">
           <label class="form-label">Fecha</label>
           <input
             nbInput
@@ -22,31 +26,7 @@
           <nb-datepicker #dateTimePicker></nb-datepicker>
         </div>
 
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Precio Unitario (Bs.)</label>
-          <input
-            type="number"
-            nbInput
-            fullWidth
-            [status]="
-              formValidationService.isValidField(myForm, 'unitPrice')
-                ? 'danger'
-                : 'primary'
-            "
-            formControlName="unitPrice"
-            placeholder="Precio de compra"
-          />
-
-          <span
-            *ngIf="formValidationService.isValidField(myForm, 'unitPrice')"
-            class="form-text text-danger"
-          >
-            {{ formValidationService.getFieldError(myForm, "unitPrice") }}
-          </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-2">
           <label class="form-label">Cantidad</label>
           <input
             type="number"
@@ -68,8 +48,32 @@
             {{ formValidationService.getFieldError(myForm, "quantity") }}
           </span>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <label class="form-label">Precio Unitario (Bs.)</label>
+          <input
+            type="number"
+            nbInput
+            fullWidth
+            [status]="
+              formValidationService.isValidField(myForm, 'unitPrice')
+                ? 'danger'
+                : 'primary'
+            "
+            formControlName="unitPrice"
+            placeholder="Precio de compra"
+          />
 
-        <div class="col-md-6 mb-3">
+          <span
+            *ngIf="formValidationService.isValidField(myForm, 'unitPrice')"
+            class="form-text text-danger"
+          >
+            {{ formValidationService.getFieldError(myForm, "unitPrice") }}
+          </span>
+        </div>
+
+        <div class="col-md-6">
           <label class="form-label">Monto Total (Bs.)</label>
           <input
             type="number"

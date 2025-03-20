@@ -1,8 +1,49 @@
 <shared-date-range-picker
   [inputStartDate]="startDate"
   [inputEndDate]="endDate"
-  (sendDateRange)="getStockMovements($event.startDate, $event.endDate)"
+  (sendDateRange)="
+    getStockMovements(
+      $event.startDate,
+      $event.endDate,
+      typeStockMovementControl.value!
+    )
+  "
 ></shared-date-range-picker>
-
-<pre>{{ stockMovements.length }}</pre>
-<pre>{{ stockMovements | json }}</pre>
+<nb-card accent="primary">
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">Tipo de movimiento:</label>
+        <nb-select
+          fullWidth
+          [formControl]="typeStockMovementControl"
+          status="primary"
+        >
+          <nb-option [value]="''">Todos</nb-option>
+          <nb-option *ngFor="let type of typeStockMovements" [value]="type">
+            {{ type }}
+          </nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </nb-card-body></nb-card
+>
+<nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
+  <nb-card-header>Movimentos de stock</nb-card-header>
+  <nb-card-body>
+    <ag-grid-angular
+      style="width: 100%"
+      class="ag-theme-alpine"
+      domLayout="autoHeight"
+      [rowData]="stockMovements"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [animateRows]="true"
+      [localeText]="localeText"
+      [paginationPageSize]="15"
+      [paginationPageSizeSelector]="[15, 20, 50]"
+    >
+    </ag-grid-angular>
+  </nb-card-body>
+</nb-card>

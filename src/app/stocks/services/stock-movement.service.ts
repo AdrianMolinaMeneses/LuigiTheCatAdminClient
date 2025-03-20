@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StockMovementDatastoreService } from './stock-movement-datastore.service';
 import { RegisterStockMovement } from '../interfaces/register-stock-movement.interface';
+import { CancelStockMovement } from '../interfaces/cancel-stock-movement.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,18 @@ export class StockMovementService {
     return this.stockMovementDatastoreService.register(registerStockMovement);
   }
 
-  public listStockMovements(startDate: Date, endDate: Date) {
+  public cancelStockMovement(
+    id: string,
+    cancelStockMovement: CancelStockMovement
+  ) {
+    return this.stockMovementDatastoreService.cancel(id, cancelStockMovement);
+  }
+
+  public listStockMovements(
+    startDate: Date,
+    endDate: Date,
+    typeStockMovement: string
+  ) {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -23,7 +35,8 @@ export class StockMovementService {
 
     return this.stockMovementDatastoreService.findAll(
       start.toISOString(),
-      end.toISOString()
+      end.toISOString(),
+      typeStockMovement
     );
   }
 }

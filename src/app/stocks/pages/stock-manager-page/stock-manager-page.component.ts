@@ -9,6 +9,7 @@ import { localeEs } from '../../../../locale-es';
 import { IconRendererComponent } from '../../../shared/components/icon-renderer/icon-renderer.component';
 import { NbDialogService } from '@nebular/theme';
 import { StockManagerDialogComponent } from '../../components/stock-manager-dialog/stock-manager-dialog.component';
+import { TypeStockMovementEnum } from '../../interfaces/type-stock-movement-enum.interface';
 
 @Component({
   selector: 'app-stock-manager-page',
@@ -65,41 +66,66 @@ export class StockManagerPageComponent implements OnInit {
 
   loadTable() {
     this.columnDefs = [
-      { headerName: 'Nombre', field: 'product.name', sortable: true },
+      { headerName: 'Nombre', field: 'product.name' },
       {
         headerName: 'Color',
         field: 'product.color',
-        sortable: true,
       },
       {
         headerName: 'Talla',
         field: 'product.size',
-        sortable: true,
+        cellStyle: { 'text-align': 'center' },
         minWidth: 80,
         maxWidth: 80,
       },
       {
-        headerName: 'Precio (Bs.)',
-        field: 'product.price',
-        sortable: true,
-        minWidth: 120,
-        maxWidth: 120,
+        headerName: 'Precio de compra (Bs.)',
+        field: 'product.purchasePrice',
+        cellStyle: { 'text-align': 'center' },
+        minWidth: 175,
+        maxWidth: 175,
+      },
+      {
+        headerName: 'Precio de venta (Bs.)',
+        field: 'product.salePrice',
+        cellStyle: { 'text-align': 'center' },
+        minWidth: 165,
+        maxWidth: 165,
       },
       {
         headerName: 'Cantidad',
         field: 'quantity',
-        sortable: true,
+        cellStyle: { 'text-align': 'center' },
         minWidth: 100,
         maxWidth: 100,
       },
       {
         cellRenderer: IconRendererComponent,
         cellRendererParams: {
-          icon: 'plus-square-outline',
+          icon: 'log-in-outline',
           tooltip: 'Agregar Mercaderia',
           color: 'success',
-          onAction: this.addMerchandise.bind(this),
+          onAction: this.registerStockMovement.bind(
+            this,
+            TypeStockMovementEnum.MERCHANDISE_ENTRY
+          ),
         },
+        cellStyle: { 'text-align': 'center' },
+        minWidth: 60,
+        maxWidth: 60,
+      },
+      {
+        cellRenderer: IconRendererComponent,
+        cellRendererParams: {
+          icon: 'log-out-outline',
+          tooltip: 'Venta',
+          color: 'info',
+          onAction: this.registerStockMovement.bind(
+            this,
+            TypeStockMovementEnum.SALE
+          ),
+        },
+        cellStyle: { 'text-align': 'center' },
         minWidth: 60,
         maxWidth: 60,
       },
@@ -108,12 +134,15 @@ export class StockManagerPageComponent implements OnInit {
     this.defaultColDef = { resizable: true, flex: 1 };
   }
 
-  addMerchandise(stockId: string) {
+  registerStockMovement(TypeStockMovement: string, stockId: string) {
     const stock = this.stocks.find((s) => s._id === stockId);
-    console.log({ ID: stockId, STOCK: stock });
 
     const data = {
       stock: stock,
+      TypeStockMovement:
+        TypeStockMovement === TypeStockMovementEnum.MERCHANDISE_ENTRY
+          ? TypeStockMovementEnum.MERCHANDISE_ENTRY
+          : TypeStockMovementEnum.SALE,
     };
 
     this.dialogService
@@ -125,11 +154,12 @@ export class StockManagerPageComponent implements OnInit {
       .onClose.subscribe((res) => {
         if (res) {
           console.log(res);
-          this.getStocks(
-            this.query,
-            this.sizeControl.value!,
-            this.colorControl.value!
-          );
+          if (res.type === TypeStockMovementEnum.MERCHANDISE_ENTRY) {
+            stock!.quantity += res.quantity;
+          } else {
+            stock!.quantity -= res.quantity;
+          }
+          this.stocks = [...this.stocks];
         }
       });
   }

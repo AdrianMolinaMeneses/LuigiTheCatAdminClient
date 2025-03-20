@@ -1,8 +1,15 @@
 <nb-icon
+  *ngIf="params.tooltip"
   class="icon-style"
   [icon]="params.icon"
+  [status]="params.color"
   (click)="onClick()"
   [nbTooltip]="params.tooltip"
   [nbTooltipStatus]="params.color"
+></nb-icon>
+
+<nb-icon
+  *ngIf="!params.tooltip"
+  [icon]="params.icon"
   [status]="params.color"
 ></nb-icon>
