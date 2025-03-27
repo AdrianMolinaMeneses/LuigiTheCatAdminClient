@@ -39,6 +39,11 @@ export class MenuService {
         },
       ],
     },
+    {
+      title: 'Gastos',
+      icon: 'external-link-outline',
+      link: '/expenses/view-expenses',
+    },
   ];
 
   getMenuItems(): NbMenuItem[] {

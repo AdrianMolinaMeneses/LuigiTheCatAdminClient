@@ -1,0 +1,81 @@
+<nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
+  <nb-card-header> Registrar Gasto </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="sendData()">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <label class="form-label">Fecha</label>
+          <input
+            nbInput
+            [nbDatepicker]="dateTimePicker"
+            formControlName="registerDate"
+            class="custom-date-picker"
+            fullWidth
+            [status]="'primary'"
+            readonly
+          />
+          <nb-datepicker #dateTimePicker></nb-datepicker>
+        </div>
+
+        <div class="col-md-6 mb-2">
+          <label class="form-label">Monto (Bs.)</label>
+          <input
+            type="number"
+            nbInput
+            fullWidth
+            [status]="
+              formValidationService.isValidField(myForm, 'amount')
+                ? 'danger'
+                : 'primary'
+            "
+            formControlName="amount"
+            placeholder="Monto"
+          />
+
+          <span
+            *ngIf="formValidationService.isValidField(myForm, 'amount')"
+            class="form-text text-danger"
+          >
+            {{ formValidationService.getFieldError(myForm, "amount") }}
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Descripción</label>
+        <textarea
+          type="text"
+          nbInput
+          fullWidth
+          [status]="
+            formValidationService.isValidField(myForm, 'description')
+              ? 'danger'
+              : 'primary'
+          "
+          formControlName="description"
+          placeholder="Descripción del gasto"
+        ></textarea>
+
+        <span
+          *ngIf="formValidationService.isValidField(myForm, 'description')"
+          class="form-text text-danger"
+        >
+          {{ formValidationService.getFieldError(myForm, "description") }}
+        </span>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="danger" (click)="close()">Cancelar</button>
+    <button
+      nbButton
+      status="primary"
+      type="submit"
+      class="float-end"
+      [disabled]="!myForm.valid"
+      (click)="sendData()"
+    >
+      Guardar
+    </button>
+  </nb-card-footer>
+</nb-card>

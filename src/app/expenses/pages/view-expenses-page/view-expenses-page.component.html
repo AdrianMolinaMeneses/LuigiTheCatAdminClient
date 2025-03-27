@@ -1,0 +1,30 @@
+<nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
+  <nb-card-header>
+    Gastos
+    <button
+      nbButton
+      status="primary"
+      type="submit"
+      class="float-end"
+      (click)="openRegisterExpenseDialog()"
+    >
+      Agregar Gasto
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ag-grid-angular
+      style="width: 100%"
+      class="ag-theme-alpine"
+      domLayout="autoHeight"
+      [rowData]="expenses"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [animateRows]="true"
+      [localeText]="localeText"
+      [paginationPageSize]="15"
+      [paginationPageSizeSelector]="[15, 20, 50]"
+    >
+    </ag-grid-angular>
+  </nb-card-body>
+</nb-card>
