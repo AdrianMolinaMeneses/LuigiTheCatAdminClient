@@ -27,6 +27,12 @@ const routes: Routes = [
       import('./stocks/stocks.module').then((m) => m.StocksModule),
   },
   {
+    path: 'expenses',
+    canActivate: [isAuthenticatedGuard],
+    loadChildren: () =>
+      import('./expenses/expenses.module').then((m) => m.ExpensesModule),
+  },
+  {
     path: '404',
     component: Error404PageComponent,
   },

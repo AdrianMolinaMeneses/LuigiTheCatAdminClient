@@ -153,7 +153,6 @@ export class StockManagerPageComponent implements OnInit {
       })
       .onClose.subscribe((res) => {
         if (res) {
-          console.log(res);
           if (res.type === TypeStockMovementEnum.MERCHANDISE_ENTRY) {
             stock!.quantity += res.quantity;
           } else {
