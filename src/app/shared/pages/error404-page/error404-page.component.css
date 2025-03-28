@@ -1,0 +1,23 @@
+.fullscreen-image {
+  position: relative;
+  height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+  overflow: hidden; /* Evita que la imagen se desborde */
+}
+
+img.img-fluid {
+  position: absolute;
+  top: 0;
+  left: 50%; /* Centra la imagen horizontalmente */
+  transform: translateX(-50%); /* Asegura que la imagen se mantenga centrada horizontalmente */
+  height: 100%; /* La imagen ocupa el 100% del alto */
+  width: auto; /* El ancho se ajusta proporcionalmente */
+  object-fit: contain; /* Asegura que la imagen no se recorte, pero puede dejar espacio vacío en los laterales */
+}
+
+.centered-button {
+  position: absolute;
+  top: 20px; /* Ajusta esto para mover el botón hacia abajo o hacia arriba */
+  left: 50%;
+  transform: translateX(-50%); /* Centra el botón horizontalmente */
+  z-index: 1; /* Asegura que el botón esté encima de la imagen */
+}
