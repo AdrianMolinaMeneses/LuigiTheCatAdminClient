@@ -35,7 +35,7 @@ registerLocaleData(localeEs);
     BrowserAnimationsModule,
     NbMenuModule.forRoot(),
     NbSidebarModule.forRoot(),
-    NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbThemeModule.forRoot({ name: 'default' }),
     NbToastrModule.forRoot(),
     NbDialogModule.forRoot(),
     NbDatepickerModule.forRoot(),
@@ -44,7 +44,7 @@ registerLocaleData(localeEs);
       parseOptions: { locale: es },
       formatOptions: { locale: es },
     }),
-    //NebularThemeModule,
+    NebularThemeModule,
   ],
   providers: [
     provideHttpClient(withInterceptors([AuthInterceptor])),
