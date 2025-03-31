@@ -17,3 +17,8 @@
 input[readonly] {
   cursor: not-allowed;
 }
+
+nb-card-header {
+  font-size: x-large !important;
+  font-weight: bold !important;
+}
