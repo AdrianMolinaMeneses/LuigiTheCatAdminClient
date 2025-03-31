@@ -29,7 +29,10 @@
   </nb-card-body>
 </nb-card>
 <nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
-  <nb-card-header>Stocks</nb-card-header>
+  <nb-card-header>
+    Stocks
+    <span class="float-end"> Cantidad total: {{ totalStock }} </span>
+  </nb-card-header>
   <nb-card-body>
     <ag-grid-angular
       style="width: 100%"

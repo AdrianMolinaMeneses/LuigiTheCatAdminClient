@@ -23,6 +23,7 @@ export class StockManagerPageComponent implements OnInit {
   public colors = Object.values(ColorEnum);
   public sizes = Object.values(SizeEnum);
   private query: string = '';
+  public totalStock: number = 0;
 
   public columnDefs: ColDef[] = [];
   public defaultColDef: ColDef = {};
@@ -55,6 +56,10 @@ export class StockManagerPageComponent implements OnInit {
     this.stockService.listStocks(query, size, color).subscribe({
       next: (stocks) => {
         this.stocks = stocks;
+        this.totalStock = this.stocks.reduce(
+          (sum, stock) => sum + stock.quantity,
+          0
+        );
         this.loading = false;
       },
       error: (message) => {

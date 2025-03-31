@@ -4,7 +4,10 @@
       <nb-card-header>{{ cr.name }}</nb-card-header>
       <nb-card-body>
         <p><strong>Tipo:</strong> {{ cr.type }}</p>
-        <p><strong>Monto Total:</strong> {{ cr.totalAmount }} Bs.</p>
+        <p>
+          <strong>Monto Total:</strong>
+          {{ cr.totalAmount | number : "1.0-2" }} Bs.
+        </p>
       </nb-card-body>
     </nb-card>
   </div>

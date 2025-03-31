@@ -85,7 +85,9 @@ export class StockManagerDialogComponent implements OnInit {
     const quantity = this.myForm.get('quantity')?.value;
 
     const totalPrice = unitPrice * quantity;
-    this.myForm.get('totalAmount')?.setValue(totalPrice, { emitEvent: false });
+    this.myForm
+      .get('totalAmount')
+      ?.setValue(totalPrice.toFixed(2), { emitEvent: false });
   }
 
   close() {
@@ -103,8 +105,8 @@ export class StockManagerDialogComponent implements OnInit {
           ? TypeStockMovementEnum.MERCHANDISE_ENTRY
           : TypeStockMovementEnum.SALE,
       quantity: this.myForm.value.quantity,
-      unitPrice: this.myForm.value.unitPrice,
-      totalAmount: this.myForm.value.totalAmount,
+      unitPrice: Number(this.myForm.value.unitPrice),
+      totalAmount: Number(this.myForm.value.totalAmount),
       description: this.myForm.value.description,
     };
 
