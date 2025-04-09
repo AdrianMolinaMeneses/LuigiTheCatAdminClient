@@ -9,5 +9,6 @@ export enum ColorEnum {
   PLOMO_CLARO = 'Plomo Claro',
   PLOMO_OSCURO = 'Plomo Oscuro',
   VERDE_CLARO = 'Verde Claro',
+  VERDE_MILITAR = 'Verde Militar',
   VERDE_PACAY = 'Verde Pacay',
 }
