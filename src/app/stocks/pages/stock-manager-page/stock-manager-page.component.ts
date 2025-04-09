@@ -164,6 +164,10 @@ export class StockManagerPageComponent implements OnInit {
             stock!.quantity -= res.quantity;
           }
           this.stocks = [...this.stocks];
+          this.totalStock = this.stocks.reduce(
+            (sum, stock) => sum + stock.quantity,
+            0
+          );
         }
       });
   }
