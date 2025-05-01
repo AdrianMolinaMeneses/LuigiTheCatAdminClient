@@ -21,6 +21,7 @@ export class ViewStockMovementsPageComponent implements OnInit {
   public stockMovements: StockMovement[] = [];
   public typeStockMovements = Object.values(TypeStockMovementEnum);
   public typeStockMovementControl = new FormControl('');
+  public totalProfit: number = 0;
 
   private currentDate: Date = new Date();
   public startDate: Date = new Date(
@@ -66,6 +67,10 @@ export class ViewStockMovementsPageComponent implements OnInit {
       .subscribe({
         next: (stockMovements) => {
           this.stockMovements = stockMovements;
+          this.totalProfit = this.stockMovements.reduce(
+            (sum, stock) => sum + stock.totalAmount,
+            0
+          );
           this.loading = false;
         },
         error: (message) => {
