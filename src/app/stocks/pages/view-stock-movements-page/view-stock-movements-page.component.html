@@ -29,7 +29,12 @@
   </nb-card-body></nb-card
 >
 <nb-card accent="primary" [nbSpinner]="loading" nbSpinnerStatus="primary">
-  <nb-card-header>Movimentos de stock</nb-card-header>
+  <nb-card-header>
+    Movimentos de stock
+    <span class="float-end">
+      Ganancia total: {{ totalProfit | number : "1.0-2" }} Bs.</span
+    >
+  </nb-card-header>
   <nb-card-body>
     <ag-grid-angular
       style="width: 100%"
