@@ -68,7 +68,7 @@ export class ViewStockMovementsPageComponent implements OnInit {
         next: (stockMovements) => {
           this.stockMovements = stockMovements;
           this.totalProfit = this.stockMovements.reduce(
-            (sum, stock) => sum + stock.totalAmount,
+            (sum, stock) => (stock.status ? sum + stock.totalAmount : sum),
             0
           );
           this.loading = false;
